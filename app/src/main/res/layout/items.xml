@@ -17,6 +17,15 @@
             android:layout_width="match_parent"
             android:layout_height="200dp">
 
+            <ProgressBar
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/progress"
+                android:layout_gravity="center">
+
+            </ProgressBar>
+
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
