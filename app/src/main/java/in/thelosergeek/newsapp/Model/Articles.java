@@ -3,7 +3,7 @@ package in.thelosergeek.newsapp.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Artciles {
+public class Articles {
 
     @SerializedName("source")
     @Expose

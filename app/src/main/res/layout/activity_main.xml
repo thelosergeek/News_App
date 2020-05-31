@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/White"
     tools:context=".MainActivity">
 
     <TextView
@@ -35,6 +36,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Search"
+            android:textStyle="bold"
+            android:fontFamily="@font/chivo"
             android:textColor="@color/Grey"
             android:textColorHint="@color/Grey"
             android:padding="10dp"

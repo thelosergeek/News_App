@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import in.thelosergeek.newsapp.Model.Artciles;
+import in.thelosergeek.newsapp.Model.Articles;
 import in.thelosergeek.newsapp.Model.Headlines;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     final String API_KEY = "ed194c2dff8048f782e606d6fde91790";
     Adapter adapter;
-    List<Artciles> artciles = new ArrayList<>();
+    List<Articles> articles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Headlines> call, Response<Headlines> response) {
                 if(response.isSuccessful()&& response.body().getArticles()!=null){
-                    artciles.clear();
-                    artciles = response.body().getArticles();
-                    adapter = new Adapter(MainActivity.this,artciles);
+                    articles.clear();
+                    articles = response.body().getArticles();
+                    adapter = new Adapter(MainActivity.this,articles);
                     recyclerView.setAdapter(adapter);
                 }
             }

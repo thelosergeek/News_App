@@ -13,21 +13,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import org.ocpsoft.prettytime.PrettyTime;
 
-import in.thelosergeek.newsapp.Model.Artciles;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import in.thelosergeek.newsapp.Model.Articles;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
 
     Context context;
 
-    public Adapter(Context context, List<Artciles> artciles) {
+    public Adapter(Context context, List<Articles> articles) {
         this.context = context;
-        this.artciles = artciles;
+        this.articles = articles;
     }
 
-    List<Artciles> artciles;
+    List<Articles> articles;
 
     @NonNull
     @Override
@@ -38,10 +44,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Artciles a = artciles.get(position);
+        Articles a = articles.get(position);
         holder.tvTitle.setText(a.getTitle());
         holder.tvSource.setText(a.getSource().getName());
-        holder.tvDate.setText(a.getPublishedAt());
+        holder.tvDate.setText("\u2022"+dateTime(a.getPublishedAt()));
 
         String imageUri = a.getUrlToImage();
         Picasso.get().load(imageUri).into(holder.imageView);
@@ -49,7 +55,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return artciles.size();
+        return articles.size();
     }
 
     public class ViewHolder extends  RecyclerView.ViewHolder {
@@ -67,5 +73,23 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             imageView = itemView.findViewById(R.id.image);
             cardView = itemView.findViewById(R.id.cardview);
         }
+    }
+
+    public String dateTime(String t){
+        PrettyTime prettyTime = new PrettyTime(new Locale(getCountry()));
+        String time  = null;
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:", Locale.ENGLISH);
+            Date date = simpleDateFormat.parse(t);
+            time= prettyTime.format(date);
+        } catch (ParseException e){
+            e.printStackTrace();
+        }
+        return time;
+    }
+    public String getCountry(){
+        Locale locale = Locale.getDefault();
+        String country = locale.getCountry();
+        return country.toLowerCase();
     }
 }
