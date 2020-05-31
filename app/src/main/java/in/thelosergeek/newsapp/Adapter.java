@@ -1,6 +1,7 @@
 package in.thelosergeek.newsapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,13 +45,28 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Articles a = articles.get(position);
+        final Articles a = articles.get(position);
+        String url = a.getUrl();
         holder.tvTitle.setText(a.getTitle());
         holder.tvSource.setText(a.getSource().getName());
         holder.tvDate.setText("\u2022"+dateTime(a.getPublishedAt()));
 
         String imageUri = a.getUrlToImage();
         Picasso.get().load(imageUri).into(holder.imageView);
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,FullStory.class);
+                intent.putExtra("title",a.getTitle());
+                intent.putExtra("source",a.getSource().getName());
+                intent.putExtra("time",dateTime(a.getPublishedAt()));
+                intent.putExtra("imageUri",a.getUrlToImage());
+                intent.putExtra("url",a.getUrl());
+                intent.putExtra("desc",a.getDescription());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
